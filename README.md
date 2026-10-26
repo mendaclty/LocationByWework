@@ -1,5 +1,7 @@
 # LocationByWework
 
+**企微打卡助手，一键修改定位。**
+
 [![Platform](https://img.shields.io/badge/Android-5.1%2B-3DDC84?logo=android&logoColor=white)](https://developer.android.com)
 [![Framework](https://img.shields.io/badge/Xposed-LSPosed-blueviolet)](https://github.com/LSPosed/LSPosed)
 [![Version](https://img.shields.io/badge/version-1.0.0-informational)](CHANGELOG.md)
@@ -244,12 +246,7 @@ adb shell su -c 'cat /data/adb/lspd/log/modules_*.log' | grep -E "hkGPS|callback
 
 ## 致谢
 
-本项目的工程结构与定位调试思路来自以下开源项目，感谢作者的分享：
-
-- [HuangZhuoRui/LocationSpoofer](https://github.com/HuangZhuoRui/LocationSpoofer)：定位调试与数据一致性处理思路参考。
-- [gallonyin/weworkhook](https://github.com/gallonyin/weworkhook)：原始工程结构与早期实现来源（GPL-3.0）。
-- 腾讯位置服务 / 腾讯地图 Android SDK：`libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar`。
-- [ImagePicker](https://github.com/fengyongge/ImagePicker)：图片选择库（`imagepicker/`）。
+定位调试与数据一致性处理的思路参考了 [HuangZhuoRui/LocationSpoofer](https://github.com/HuangZhuoRui/LocationSpoofer)，感谢作者分享。
 
 ## 许可证
 
