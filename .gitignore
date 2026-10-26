@@ -1,0 +1,28 @@
+# ---------- 本地环境 / 构建产物 ----------
+*.iml
+.idea/
+.gradle/
+build/
+/captures
+.externalNativeBuild
+local.properties
+*.apk
+*.ap_
+*.dex
+*.class
+bin/
+gen/
+out/
+proguard/
+*.log
+.DS_Store
+
+# ---------- 不随仓库发布的本机资料 ----------
+# 第三方参考项目（仅本地对照，不是本模块代码）
+_reference/
+# 历史版本备份
+.restore-backup/
+# 实机调试笔记：含设备序列号、本机路径等个人环境信息
+skill/
+android16-hook-task-report.md
+docs/superpowers/

@@ -1,0 +1,70 @@
+apply plugin: 'com.android.application'
+
+// 腾讯位置服务 key 不写入仓库。
+// 构建前在 local.properties 中加一行（该文件已被 .gitignore 忽略）：
+//     tencent.map.key=你的腾讯地图 key
+// 也可以通过 -PtencentMapKey=xxx 或环境变量 TENCENT_MAP_KEY 注入。
+// 未配置时会使用占位符：地图可以编译安装，但选点弹窗内的地图与地名搜索不可用。
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withInputStream { localProperties.load(it) }
+}
+def tencentMapKey = localProperties.getProperty('tencent.map.key')
+        ?: project.findProperty('tencentMapKey')
+        ?: System.getenv('TENCENT_MAP_KEY')
+        ?: 'YOUR_TENCENT_MAP_KEY'
+
+android {
+    namespace 'org.gallonyin.weworkhk'
+    compileSdkVersion 34
+
+    defaultConfig {
+        applicationId "write.LocationGPS"
+        minSdkVersion 21
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0.0"
+
+        // 同时提供给 Java 代码（地名搜索）与 AndroidManifest（地图 SDK 读取 meta-data）
+        buildConfigField "String", "TENCENT_MAP_KEY", "\"${tencentMapKey}\""
+        manifestPlaceholders = [tencentMapKey: tencentMapKey]
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+        encoding 'UTF-8'
+    }
+
+    testOptions {
+        // LocationFactory / 回调重写相关的单元测试只依赖纯 JVM 逻辑，
+        // 但会构造 android.location.Location，需要 mockable jar 返回默认值。
+        unitTests.returnDefaultValues = true
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation project(':imagepicker')
+    testImplementation 'junit:junit:4.12'
+    compileOnly 'de.robv.android.xposed:api:53'
+    compileOnly 'de.robv.android.xposed:api:53:sources'
+    implementation files('libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar')
+}

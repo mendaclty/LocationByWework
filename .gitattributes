@@ -1,0 +1,16 @@
+# 统一换行符，避免 Windows/Linux 协作时的整文件 diff
+* text=auto eol=lf
+
+# Windows 脚本保持 CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# 二进制文件不做换行符转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.jar binary
+*.keystore binary
+*.jks binary
