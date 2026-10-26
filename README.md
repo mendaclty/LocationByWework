@@ -135,7 +135,7 @@ echo "tencent.map.key=你的腾讯地图key" >> local.properties
 ## 项目结构
 
 ```text
-weworkhook-master/
+LocationByWework/
 ├── app/
 │   ├── libs/TencentMapSDK_Raster_v_1.2.8.1.c02ec64.jar   # 腾讯栅格地图 SDK（纯 Java）
 │   └── src/
